@@ -86,6 +86,8 @@ Although the demo is already functional, the resolution rate vary from 75% to 25
 - adding external API and data sources (currently we only use the Photon Geocoder, which is mostly useful for recognized/named geographic entities, much less for mining related locations)
 - adding computer vision capabilities for map processing (a lot of locations are only shown on the document's maps, without explicit coordinates)
 
+This demo has been built with a focus on experimenting/debugging. For example we cache extensively intermediary results at every step of the pipeline, in order to avoid expensive LLM re-runs. Likewise the UI displays as much logs and info as possible.
+
 ## Setup and usage
 
 Requires **Python 3.11 or newer**. Real document analysis also requires an OpenAI API key with access to the configured models and web search. The browser UI is served by FastAPI; no separate frontend installation is needed.
