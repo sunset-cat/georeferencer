@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Georeferencer · Document library</title><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/style.css"><link rel="stylesheet" href="/assets/tabs.css?v=geocoder-refinement-1"><script src="/assets/verification-tabs.js?v=geocoder-refinement-1" defer></script><script src="/assets/app.js?v=geocoder-refinement-1" defer></script></head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="Georeferencer home"><span class="brand-mark">◎</span><span>Georeferencer<small>DOCUMENT EXPLORER</small></span></a>
+    <div class="workspace-label">WORKSPACE</div><div class="nav-item"><span>▦</span> Document library <span class="nav-count" id="nav-count">0</span></div>
+    <div class="sidebar-note"><span class="pulse"></span> Local workspace<p>Your documents and runs are stored on this server.</p></div>
+    <div class="sidebar-bottom"><span>↗</span> Evidence before coordinates<small>Textual georeferencing · POC</small></div>
+  </aside>
+  <main>
+    <header><span class="breadcrumb">Workspace <span>/</span> Library</span><a href="/docs" target="_blank" rel="noopener">API docs ↗</a></header>
+    <section class="page-heading"><div class="eyebrow">FROM DOCUMENTS TO PLACES</div><h1>Your document library<span>.</span></h1><p>Explore geographic references, follow the evidence, and see what still needs verification.</p></section>
+    <section class="import-panel" aria-label="Import a document">
+      <label class="upload-zone" id="drop-zone" tabindex="0" role="button"><span class="upload-symbol">↥</span><strong>Add a document</strong><span>Drop a file here or browse</span><small>PDF, HTML, or UTF-8 text · up to 10 MB</small><input id="file-input" type="file" accept=".pdf,.txt,.html,.htm,.md" hidden></label>
+      <div class="import-divider"><span>OR</span></div>
+      <form id="url-form"><label for="url-input">Import from a link</label><p>Download a publicly accessible document.</p><div class="url-row"><input id="url-input" type="url" placeholder="https://example.com/report.pdf" required><button class="primary" id="url-submit" type="submit">Import ↗</button></div><button type="button" class="text-button" id="demo-button">Try a synthetic example →</button></form>
+    </section>
+    <p id="run-policy" class="detail-subtitle"></p>
+    <div id="notice" class="notice" role="status" hidden></div>
+    <div id="configuration-notice" class="notice" hidden></div>
+    <section class="library-section"><div class="section-heading"><h2>Documents <span id="document-count">0</span></h2><button class="text-button" id="refresh-button">↻ Refresh</button></div><div class="document-grid" id="documents"></div><div class="empty-library" id="empty-library"><span>⌁</span><h3>A place for your field notes.</h3><p>Add a document to start discovering its locations.</p></div></section>
+    <section id="explorer" class="explorer" hidden>
+      <div class="explorer-heading"><div><div class="eyebrow">DOCUMENT EXPLORER</div><h2 id="selected-title"></h2><p id="selected-summary"></p><p id="run-progress"></p></div><div class="document-actions"><a id="original-link" class="secondary">↓ Original</a><a id="geojson-link" class="secondary">↓ GeoJSON</a><button id="cached-refresh-button" class="secondary" hidden>Refresh cached evidence · free</button><button id="continue-button" class="secondary" hidden>Continue unfinished work</button><button id="retry-button" class="secondary">↻ Run again</button></div></div>
+        <p id="corpus-description" class="detail-subtitle" hidden></p>
+        <div id="processing-message" class="processing-message" role="status" aria-live="polite" hidden></div>
+      <div id="run-metrics" class="run-metrics"></div>
+      <details id="cost-details" class="cost-details" hidden><summary>Cost breakdown</summary><div id="cost-breakdown"></div></details>
+      <div class="result-tabs" role="tablist" aria-label="Document results">
+        <button id="geojson-tab" class="result-tab" role="tab" aria-selected="true" aria-controls="geojson-panel" tabindex="0">GeoJSON</button>
+        <button id="entities-tab" class="result-tab" role="tab" aria-selected="false" aria-controls="entities-panel" tabindex="-1">Entities &amp; evidence</button>
+        <button id="raw-tab" class="result-tab" role="tab" aria-selected="false" aria-controls="raw-panel" tabindex="-1">Raw LLM output</button>
+      </div>
+      <section id="geojson-panel" class="geojson-panel" role="tabpanel" aria-labelledby="geojson-tab">
+        <div class="geojson-heading"><p id="geojson-summary"></p><button id="copy-geojson" class="secondary" type="button">Copy GeoJSON</button></div>
+        <p id="geojson-empty" class="detail-subtitle" hidden></p>
+        <pre id="geojson-content" tabindex="0" aria-label="GeoJSON result"></pre>
+      </section>
+      <section id="entities-panel" role="tabpanel" aria-labelledby="entities-tab" hidden>
+      <div class="explorer-grid">
+        <div class="location-column"><div class="location-heading"><h3>Locations <span id="location-count"></span></h3><label for="type-filter" class="sr-only">Verification type</label><select id="type-filter"><option value="all">All verification types</option></select></div><div id="location-list" class="location-list"></div></div>
+        <div id="location-detail" class="location-detail"><div class="detail-placeholder"><span>⌖</span><h3>Follow a location’s evidence</h3><p>Select a location to inspect its coordinates, mentions, and verification sources.</p></div></div>
+      </div>
+      <details class="document-text"><summary>Original document text <span>Evidence anchors refer to this text</span></summary><pre id="document-text"></pre></details>
+      </section>
+      <section id="raw-panel" class="geojson-panel" role="tabpanel" aria-labelledby="raw-tab" hidden>
+        <p class="detail-subtitle">Document extraction responses before validation. Entity types and roles are exactly as returned by the model. Select a location in Entities &amp; evidence to inspect its search results and source checks.</p>
+        <div id="raw-llm-content"></div>
+      </section>
+      <details class="diagnostics" id="diagnostics"><summary>Run diagnostics <span id="issue-count"></span></summary><div id="issues"></div><button class="text-button" id="events-button">View structured events →</button><pre id="events" hidden></pre><div id="history"></div></details>
+    </section>
+    <footer>Every coordinate should have a source. Geographic data: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> · <a href="https://photon.komoot.io/" target="_blank" rel="noopener">Photon</a></footer>
+  </main>
+</body></html>

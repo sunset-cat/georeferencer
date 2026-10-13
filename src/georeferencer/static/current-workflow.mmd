@@ -1,0 +1,68 @@
+flowchart TB
+    accTitle: Georeferencer - agent workflow, location model and modular tools
+    accDescr: Purple boxes are LLM calls, green boxes Python processing and blue boxes external API calls. Documents are processed in chunks with forward context. The model classifies general geographic context, spatial groups and component locations. Python routes coordinate claims, places and mining assets to appropriate tools. Future permit, drilling and survey adapters are dashed. Python validates evidence before geographic review and GeoJSON output.
+
+    subgraph EXTRACTION["1. READ AND PROGRESSIVELY RECOGNIZE LOCATIONS"]
+        DOC["Document<br/>PDF / HTML / text"] --> READ["PYTHON<br/>Extract text and split into chunks"]
+        READ --> RECOGNIZE["LLM - Sol<br/>Identify locations in this chunk<br/>Use earlier entities and scoped geography"]
+        RECOGNIZE --> UPDATE["PYTHON<br/>Anchor mentions; validate claims<br/>Merge compatible updates; retain stable IDs"]
+        UPDATE -. "next chunk: accumulated entities + geographic context" .-> RECOGNIZE
+    end
+
+    UPDATE -- "all chunks processed" --> MODEL["LOCATION MODEL<br/>General geographic context: country, province, reference town<br/>Spatial group: project, region, basin or mountain range<br/>Component location: hole, target, outcrop; references group ID<br/>Each entity also has a role, verification type, mentions and optional coordinate claims"]
+    MODEL --> ROUTE["PYTHON - ROUTING<br/>Exclude irrelevant roles from resolution<br/>Group related locations; choose tools from evidence and type"]
+
+    subgraph SOURCES["2. RESOLVE THROUGH MODULAR SOURCE WORKFLOWS"]
+        COORD["PYTHON - DOCUMENT COORDINATES<br/>Check quoted values and coordinate system<br/>Convert supported coordinates"]
+        GEOCODE["EXTERNAL API - GEOCODER<br/>Photon or Nominatim<br/>Geographic places with country / region context"]
+        MATCH["PYTHON - MATCH RECORDS<br/>Check original identity, type and geography<br/>Try simpler names / document aliases"]
+        QUERIES["LLM - Luna<br/>Shared refinement batch if still unsuccessful<br/>Suggest up to 3 new queries per entity"]
+        CACHE["PYTHON - SHARED SOURCES<br/>Check already downloaded reports first<br/>Discovery only when evidence is insufficient"]
+        DISCOVER["LLM - Luna + web-search tool<br/>One discovery per spatial group<br/>Supply all candidate members"]
+        FETCH["PYTHON - RETRIEVE EVIDENCE<br/>Download and reuse source documents<br/>Select relevant text, table headers and CRS passages"]
+        VERIFY["LLM - Sol<br/>Interpret passages / tables in batches<br/>Return entity-specific values and quotations"]
+        PLUGINS["EXTERNAL APIs - FUTURE ADAPTERS<br/>Permit / claim database for mineral tenure<br/>Drilling database for drill sites<br/>Gazetteer / survey service for places or geology"]
+        REGISTRY["PYTHON - OPTIONAL LOCAL REGISTRY<br/>Read a normalized registry export<br/>Not a live mining database connector"]
+
+        GEOCODE --> MATCH
+        MATCH -. "simple query variants" .-> GEOCODE
+        MATCH -. "no match / ambiguity after simple retries" .-> QUERIES
+        QUERIES -. "new queries; original constraints retained" .-> GEOCODE
+        CACHE -- "new source needed" --> DISCOVER
+        DISCOVER --> FETCH --> VERIFY
+    end
+
+    ROUTE -- "coordinates in document" --> COORD
+    ROUTE -- "geographic place" --> GEOCODE
+    ROUTE -- "mining asset / geological feature" --> CACHE
+    ROUTE -- "optional configured registry" --> REGISTRY
+    ROUTE -. "register another adapter for the relevant type / jurisdiction" .-> PLUGINS
+    MATCH -. "still unresolved after bounded refinement" .-> CACHE
+
+    subgraph ACCEPTANCE["3. VALIDATE, REVIEW AND RETURN RESULTS"]
+        ACCEPT["PYTHON - ACCEPTANCE<br/>Check source evidence and copied values<br/>Convert CRS; preserve provenance; detect conflicts<br/>Missing or ambiguous evidence stays unresolved"]
+        EXTENT["PYTHON - GROUP EXTENT<br/>BBox of resolved component locations only<br/>Exclude general geographic context points"]
+        AUDIT["LLM - Sol<br/>Check whether the group extent is plausible<br/>Flag suspicious points; keep their coordinates"]
+        RESULT["PYTHON - OUTPUT<br/>GeoJSON coordinates + complete evidence report<br/>All entities, unresolved reasons, flags and usage"]
+        ACCEPT --> EXTENT --> AUDIT --> RESULT
+    end
+
+    COORD --> ACCEPT
+    MATCH -- "unique acceptable record" --> ACCEPT
+    CACHE -- "supported cached coordinates" --> ACCEPT
+    CACHE -. "cached source passages" .-> VERIFY
+    VERIFY --> ACCEPT
+    REGISTRY --> ACCEPT
+    PLUGINS -. "same candidate / evidence contract" .-> ACCEPT
+
+    classDef python fill:#e4f1e8,stroke:#397454,color:#173d27,stroke-width:2px;
+    classDef llm fill:#eee5fa,stroke:#8459b4,color:#3e215e,stroke-width:2px;
+    classDef api fill:#e5efff,stroke:#477cb3,color:#153957,stroke-width:2px;
+    classDef data fill:#faf9f6,stroke:#939187,color:#36352f;
+    classDef future fill:#e5efff,stroke:#477cb3,color:#153957,stroke-width:2px,stroke-dasharray:6 4;
+    class READ,UPDATE,ROUTE,COORD,MATCH,CACHE,FETCH,ACCEPT,EXTENT,RESULT python;
+    class RECOGNIZE,QUERIES,DISCOVER,VERIFY,AUDIT llm;
+    class GEOCODE api;
+    class DOC,MODEL data;
+    class PLUGINS future;
+    class REGISTRY python;

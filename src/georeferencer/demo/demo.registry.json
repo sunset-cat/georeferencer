@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Example Permit P-123", "category": "mining", "subtype": "permit",
+    "country_code": "CA", "jurisdiction": "Alberta",
+    "identifiers": [{"namespace": "demo_permits", "value": "P-123"}],
+    "geometry": {"type": "Point", "coordinates": [-115.1, 53.1]},
+    "geometry_basis": "representative_point",
+    "source": "fixture://synthetic-permit-registry", "source_record_id": "P-123",
+    "independence": "unknown"
+  }
+]

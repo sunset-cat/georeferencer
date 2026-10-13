@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="1100" viewBox="0 0 1280 1100" role="img" aria-labelledby="title desc">
+<title id="title">Document recognition: ingestion, chunks and two feedback paths</title><desc id="desc">Green processing cards are Python, purple is the LLM. Dashed italic object cards contain selected examples. Red feedback corrects the same chunk. Green feedback supplies accumulated entity and geographic context to the next chunk. Project context is extracted in entity fields; Python constructs chunk_context.</desc>
+<defs><filter id="shadow" x="-15%" y="-20%" width="130%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#193b2b" flood-opacity=".055"/></filter>
+<marker id="gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8393a0"/></marker>
+<marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#39765b"/></marker>
+<marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7d56ae"/></marker>
+<marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#b75d52"/></marker>
+</defs><rect width="1280" height="1100" fill="#f8fafb"/>
+<text x="60" y="48" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#7c8b94" font-weight="700" font-style="normal" text-anchor="start">01 / DOCUMENT RECOGNITION</text>
+<text x="60" y="91" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#203a32" font-weight="600" font-style="normal" text-anchor="start">Ingest. Extract. Build context.</text>
+<text x="60" y="122" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#72838e" font-weight="400" font-style="normal" text-anchor="start">One chunk at a time, with validated information carried forward.</text>
+<rect x="850" y="58" width="13" height="13" rx="3" fill="#39765b"/>
+<text x="870" y="69" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#657782" font-weight="400" font-style="normal" text-anchor="start">Python</text>
+<rect x="960" y="58" width="13" height="13" rx="3" fill="#7d56ae"/>
+<text x="980" y="69" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#657782" font-weight="400" font-style="normal" text-anchor="start">LLM</text>
+<rect x="1050" y="58" width="13" height="13" rx="3" fill="#8393a0"/>
+<text x="1070" y="69" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#657782" font-weight="400" font-style="normal" text-anchor="start">Data object</text>
+<path d="M 305 237 L 335 237" fill="none" stroke="#8393a0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#gray)"/>
+<path d="M 565 237 L 615 237" fill="none" stroke="#8393a0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#gray)"/>
+<path d="M 850 237 L 900 237" fill="none" stroke="#8393a0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#gray)"/>
+<path d="M 1025 318 L 1025 337 L 425 337 L 425 455" fill="none" stroke="#8393a0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#gray)"/>
+<text x="682" y="319" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#738591" font-weight="400" font-style="normal" text-anchor="middle">each chunk, in order</text>
+<path d="M 550 520 L 600 520" fill="none" stroke="#8393a0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#gray)"/>
+<path d="M 820 520 L 870 520" fill="none" stroke="#8393a0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#gray)"/>
+<path d="M 1030 590 L 1030 635 L 755 635 L 755 663" fill="none" stroke="#7d56ae" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#purple)"/>
+<text x="850" y="625" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#7d56ae" font-weight="400" font-style="normal" text-anchor="middle">response</text>
+<path d="M 610 760 L 580 760 L 580 561 L 550 561" fill="none" stroke="#8393a0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#gray)"/>
+<text x="599" y="657" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#8393a0" font-weight="400" font-style="normal" text-anchor="start">verify result</text>
+<path d="M 300 487 L 270 487" fill="none" stroke="#b75d52" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#red)"/>
+<path d="M 155 450 L 155 378 L 961 378 L 961 455" fill="none" stroke="#b75d52" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#red)"/>
+<text x="631" y="362" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#b75d52" font-weight="600" font-style="normal" text-anchor="middle">failed check → retry the same chunk</text>
+<path d="M 350 590 L 350 680 L 262 680 L 262 756" fill="none" stroke="#39765b" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#green)"/>
+<text x="279" y="670" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#39765b" font-weight="400" font-style="normal" text-anchor="start">validated</text>
+<path d="M 500 845 L 550 845 L 550 417 L 1100 417 L 1100 455" fill="none" stroke="#39765b" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#green)"/>
+<text x="838" y="405" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#39765b" font-weight="600" font-style="normal" text-anchor="middle">valid result → enrich context → next chunk</text>
+<path d="M 550 584 L 564 584 L 564 950 L 640 950 L 640 982" fill="none" stroke="#8393a0" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" marker-end="url(#gray)"/>
+<text x="689" y="974" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#748590" font-weight="400" font-style="normal" text-anchor="start">all chunks processed</text>
+<rect x="60" y="185" width="245" height="100" rx="15" fill="#eaf4ee" stroke="#39765b" stroke-opacity=".35" filter="url(#shadow)"/>
+<text x="80" y="211" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#39765b" font-weight="700" font-style="normal" text-anchor="start">PYTHON</text>
+<text x="80" y="242" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#263c32" font-weight="600" font-style="normal" text-anchor="start">Document ingestion</text>
+<text x="80" y="267" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#536a5c" font-weight="400" font-style="normal" text-anchor="start">Parse PDF, HTML or text</text>
+<rect x="335" y="185" width="230" height="100" rx="12" fill="#fff" stroke="#8393a0" stroke-opacity=".65" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="351" y="212" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#8393a0" font-weight="500" font-style="italic" text-anchor="start">Document</text>
+<text x="351" y="238" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">name: &#x27;Monte do Carmo&#x27;</text>
+<text x="351" y="260" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">text: &#x27;…&#x27;</text>
+<rect x="615" y="185" width="235" height="100" rx="15" fill="#eaf4ee" stroke="#39765b" stroke-opacity=".35" filter="url(#shadow)"/>
+<text x="635" y="211" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#39765b" font-weight="700" font-style="normal" text-anchor="start">PYTHON</text>
+<text x="635" y="242" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#263c32" font-weight="600" font-style="normal" text-anchor="start">Create chunks</text>
+<text x="635" y="267" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#536a5c" font-weight="400" font-style="normal" text-anchor="start">Keep text + start/end offsets</text>
+<rect x="900" y="155" width="300" height="163" rx="13" fill="#f2f5f7" stroke="#e0e7eb"/>
+<text x="916" y="177" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#8393a0" font-weight="400" font-style="italic" text-anchor="start">Chunk[]</text>
+<rect x="916" y="190" width="267" height="34" rx="8" fill="#fff" stroke="#a9b7c2" stroke-dasharray="4 4"/>
+<text x="929" y="212" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#607684" font-weight="400" font-style="italic" text-anchor="start">chunk 1</text>
+<text x="1020" y="212" font-family="Consolas, monospace" font-size="12" fill="#8a99a4" font-weight="400" font-style="normal" text-anchor="start">start · end · text</text>
+<rect x="916" y="232" width="267" height="34" rx="8" fill="#fff" stroke="#a9b7c2" stroke-dasharray="4 4"/>
+<text x="929" y="254" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#607684" font-weight="400" font-style="italic" text-anchor="start">chunk 2</text>
+<text x="1020" y="254" font-family="Consolas, monospace" font-size="12" fill="#8a99a4" font-weight="400" font-style="normal" text-anchor="start">start · end · text</text>
+<rect x="916" y="274" width="267" height="34" rx="8" fill="#fff" stroke="#a9b7c2" stroke-dasharray="4 4"/>
+<text x="929" y="296" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#607684" font-weight="400" font-style="italic" text-anchor="start">… chunk n</text>
+<text x="1020" y="296" font-family="Consolas, monospace" font-size="12" fill="#8a99a4" font-weight="400" font-style="normal" text-anchor="start">start · end · text</text>
+<rect x="300" y="455" width="250" height="135" rx="15" fill="#eaf4ee" stroke="#39765b" stroke-opacity=".35" filter="url(#shadow)"/>
+<text x="320" y="481" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#39765b" font-weight="700" font-style="normal" text-anchor="start">PYTHON</text>
+<text x="320" y="512" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#263c32" font-weight="600" font-style="normal" text-anchor="start">Chunk processor</text>
+<text x="320" y="537" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#536a5c" font-weight="400" font-style="normal" text-anchor="start">Send chunk · verify result</text>
+<text x="320" y="558" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#536a5c" font-weight="400" font-style="normal" text-anchor="start">Merge valid entities</text>
+<rect x="870" y="455" width="320" height="135" rx="15" fill="#f1eafb" stroke="#7d56ae" stroke-opacity=".35" filter="url(#shadow)"/>
+<text x="890" y="481" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#7d56ae" font-weight="700" font-style="normal" text-anchor="start">LLM · SOL</text>
+<text x="890" y="512" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#44305d" font-weight="600" font-style="normal" text-anchor="start">Extract locations</text>
+<text x="890" y="537" font-family="Arial, Helvetica, sans-serif" font-size="14" fill="#6b5b7e" font-weight="400" font-style="normal" text-anchor="start">Entity[] + spatial context</text>
+<rect x="600" y="480" width="220" height="90" rx="12" fill="#fff" stroke="#8393a0" stroke-opacity=".65" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="616" y="507" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#8393a0" font-weight="500" font-style="italic" text-anchor="start">Request</text>
+<text x="616" y="533" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">text</text>
+<text x="616" y="555" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">chunk_context</text>
+<rect x="40" y="450" width="230" height="178" rx="12" fill="#fff" stroke="#b75d52" stroke-opacity=".65" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="56" y="477" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#b75d52" font-weight="500" font-style="italic" text-anchor="start">Correction feedback</text>
+<text x="56" y="503" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">validation_feedback:</text>
+<text x="56" y="525" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">  [&#x27;hole221: bad mention&#x27;]</text>
+<text x="56" y="547" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">previous_extraction:</text>
+<text x="56" y="569" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">  {entities: […]}</text>
+<text x="56" y="613" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#8a969f" font-weight="400" font-style="italic" text-anchor="start">Previous response, when parsed</text>
+<rect x="590" y="663" width="640" height="278" rx="16" fill="#f3f0f8" stroke="#ddd5e9"/>
+<text x="610" y="690" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#7d56ae" font-weight="700" font-style="normal" text-anchor="start">LLM OUTPUT  ·  {entities: Entity[]}</text>
+<rect x="610" y="705" width="290" height="217" rx="12" fill="#fff" stroke="#8393a0" stroke-opacity=".65" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="626" y="732" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#8393a0" font-weight="500" font-style="italic" text-anchor="start">Entity · component</text>
+<text x="626" y="758" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">id: &#x27;hole221&#x27;</text>
+<text x="626" y="780" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">name: &#x27;FSA-221&#x27;</text>
+<text x="626" y="802" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">entity_kind:</text>
+<text x="626" y="824" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">  &#x27;subaltern_location&#x27;</text>
+<text x="626" y="846" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">semantic_unit: &#x27;mdc&#x27;</text>
+<text x="626" y="868" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">role: &#x27;subject_component&#x27;</text>
+<text x="626" y="890" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">verification_classes:</text>
+<text x="626" y="912" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">  [&#x27;drilling_site&#x27;]</text>
+<rect x="920" y="705" width="290" height="217" rx="12" fill="#fff" stroke="#8393a0" stroke-opacity=".65" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="936" y="732" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#8393a0" font-weight="500" font-style="italic" text-anchor="start">Entity · project context</text>
+<text x="936" y="758" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">id: &#x27;mdc&#x27;</text>
+<text x="936" y="780" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">name: &#x27;Monte do Carmo&#x27;</text>
+<text x="936" y="802" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">entity_kind: &#x27;semantic_unit&#x27;</text>
+<text x="936" y="824" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">semantic_unit: null</text>
+<text x="936" y="846" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">country_code: &#x27;BR&#x27;</text>
+<text x="936" y="868" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">jurisdiction: &#x27;Tocantins&#x27;</text>
+<text x="936" y="907" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#8a969f" font-weight="400" font-style="italic" text-anchor="start">Context is held in entity fields</text>
+<rect x="40" y="756" width="460" height="174" rx="12" fill="#fff" stroke="#39765b" stroke-opacity=".65" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="56" y="783" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#39765b" font-weight="500" font-style="italic" text-anchor="start">chunk_context</text>
+<text x="56" y="809" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">existing_locations: [{id, name, …}, …]</text>
+<text x="56" y="831" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">geographic_contexts: [{</text>
+<text x="56" y="853" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">  country_code: &#x27;BR&#x27;, jurisdiction: &#x27;Tocantins&#x27;,</text>
+<text x="56" y="875" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">  applies_to: [&#x27;c1-mdc&#x27;, &#x27;c1-hole221&#x27;]</text>
+<text x="56" y="897" font-family="Consolas, monospace" font-size="13" fill="#536575" font-weight="400" font-style="normal" text-anchor="start">}]</text>
+<text x="56" y="915" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#8a969f" font-weight="400" font-style="italic" text-anchor="start">Built by Python from accumulated, validated entities</text>
+<rect x="420" y="982" width="440" height="64" rx="12" fill="#fff" stroke="#8393a0" stroke-opacity=".65" stroke-width="1.2" stroke-dasharray="5 5"/>
+<text x="436" y="1009" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#8393a0" font-weight="500" font-style="italic" text-anchor="start">Extraction.entities: Entity[]</text>
+<text x="436" y="1031" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#8a969f" font-weight="400" font-style="italic" text-anchor="start">Validated locations → routing &amp; coordinate resolution</text>
+<text x="60" y="1080" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#87949d" font-weight="400" font-style="normal" text-anchor="start">Selected fields only. IDs become stable after Python merging. One correction attempt per failed chunk.</text>
+</svg>

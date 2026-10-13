@@ -1,0 +1,34 @@
+flowchart TB
+    accTitle: Georeferencer - implemented application architecture
+    accDescr: The browser and CLI use a local Python pipeline. SQLite stores library results and history. Local caches share source documents and model responses. JSONL events and usage feed the debug UI. There is no durable job queue.
+    UI["Browser library UI<br/>Upload, results, evidence, debug"] --> API["FastAPI<br/>Library endpoints / direct API"]
+    CLI["Python CLI<br/>Run / seed / analyze library"] --> P
+
+    subgraph LOCAL["IMPLEMENTED - one local Python application"]
+        API --> LIB["Library service<br/>Background tasks, 2 active library jobs"]
+        LIB --> INPUT["Download / decode / ingest<br/>Text PDF, HTML, plain text"]
+        INPUT --> P["Modular pipeline<br/>Extract, resolve, validate, review"]
+        P --> RESULT["RunResult<br/>GeoJSON + all entities + evidence + issues"]
+        RESULT --> DB[("SQLite library<br/>Originals, text, results, run history")]
+        RESULT --> FILES["CLI output files<br/>GeoJSON / JSON report"]
+    end
+
+    P --> MODELS["Model adapters<br/>Sol: extraction / verification / bbox review<br/>Luna: discovery / query refinement"]
+    P --> SOURCES["Source adapters<br/>Photon or Nominatim<br/>Optional normalized local registry"]
+    MODELS --> SEARCH["Hosted web-search tool<br/>Discovery only"]
+    SEARCH --> DOCS["Public technical reports / pages<br/>App retrieves proposed sources itself"]
+    DOCS --> CACHE[("Local source snapshots<br/>Original bytes, hashes, parsed text")]
+    P -. reuse snapshots .-> CACHE
+    P --> RESP[("Local response caches<br/>Extraction, discovery, verification,<br/>query refinement, geographic audit")]
+    P --> LOGS["Per-run JSONL + usage<br/>Queries, candidates, decisions, errors, costs"]
+
+
+
+    classDef python fill:#e7f1ec,stroke:#376455,color:#20352f;
+    classDef llm fill:#efe8fa,stroke:#8056aa,color:#38254a;
+    classDef external fill:#e6effa,stroke:#5279a6,color:#21364e;
+    classDef store fill:#f4f0e7,stroke:#99886a,color:#453c2b;
+    class API,LIB,INPUT,P,RESULT,FILES python;
+    class MODELS llm;
+    class SOURCES,SEARCH,DOCS external;
+    class DB,CACHE,RESP,LOGS store;

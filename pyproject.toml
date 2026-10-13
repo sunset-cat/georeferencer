@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "georeferencer"
+version = "0.1.0"
+description = "Evidence-backed, modular textual georeferencing POC"
+requires-python = ">=3.11"
+dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "pydantic>=2.9,<3", "httpx>=0.28,<1", "openai>=1.68,<4", "beautifulsoup4>=4.12,<5", "python-multipart>=0.0.20,<1", "pypdf>=6,<7", "python-dotenv>=1,<2", "pyproj>=3.7,<4", "fonttools>=4,<5"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+georeferencer = "georeferencer.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+georeferencer = ["static/*", "demo/*", "corpus/*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

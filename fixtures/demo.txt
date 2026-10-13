@@ -1,0 +1,5 @@
+This is a synthetic evaluation document; all mining entities and coordinates below are fictional.
+The Example Ridge project is in Alberta, Canada. Its representative location is longitude -115.0, latitude 53.0 in WGS84.
+The North Zone is part of the Example Ridge project. No coordinates are available for North Zone.
+The project includes Example Permit P-123, registered as P-123 in the demo_permits registry in Alberta, Canada.
+The company contact office is in Vancouver, Canada.

@@ -1,0 +1,107 @@
+{
+  "entities": [
+    {
+      "id": "project",
+      "name": "Example Ridge",
+      "category": "mining",
+      "subtype": "project",
+      "role": "primary_subject",
+      "aliases": [
+        "Example Ridge project"
+      ],
+      "mentions": [
+        {
+          "quote": "The Example Ridge project is in Alberta, Canada."
+        }
+      ],
+      "identifiers": [],
+      "country_code": "CA",
+      "jurisdiction": "Alberta",
+      "coordinate_claims": [
+        {
+          "longitude": -115.0,
+          "latitude": 53.0,
+          "crs": "WGS84",
+          "meaning": "representative_point",
+          "evidence": {
+            "quote": "Its representative location is longitude -115.0, latitude 53.0 in WGS84."
+          }
+        }
+      ]
+    },
+    {
+      "id": "zone",
+      "name": "North Zone",
+      "category": "mining",
+      "subtype": "mineralized_zone",
+      "role": "subject_component",
+      "aliases": [],
+      "mentions": [
+        {
+          "quote": "The North Zone is part of the Example Ridge project."
+        }
+      ],
+      "identifiers": [],
+      "country_code": "CA",
+      "jurisdiction": "Alberta",
+      "coordinate_claims": []
+    },
+    {
+      "id": "permit",
+      "name": "Example Permit P-123",
+      "category": "mining",
+      "subtype": "permit",
+      "role": "subject_component",
+      "aliases": [],
+      "mentions": [
+        {
+          "quote": "The project includes Example Permit P-123, registered as P-123 in the demo_permits registry in Alberta, Canada."
+        }
+      ],
+      "identifiers": [
+        {
+          "namespace": "demo_permits",
+          "value": "P-123"
+        }
+      ],
+      "country_code": "CA",
+      "jurisdiction": "Alberta",
+      "coordinate_claims": []
+    },
+    {
+      "id": "office",
+      "name": "Vancouver",
+      "category": "general_geographic",
+      "subtype": "settlement",
+      "role": "corporate_contact",
+      "aliases": [],
+      "mentions": [
+        {
+          "quote": "The company contact office is in Vancouver, Canada."
+        }
+      ],
+      "identifiers": [],
+      "country_code": "CA",
+      "jurisdiction": null,
+      "coordinate_claims": []
+    }
+  ],
+  "relationships": [
+    {
+      "subject": "zone",
+      "relation": "part_of",
+      "object": "project",
+      "evidence": {
+        "quote": "The North Zone is part of the Example Ridge project."
+      }
+    },
+    {
+      "subject": "permit",
+      "relation": "part_of",
+      "object": "project",
+      "evidence": {
+        "quote": "The project includes Example Permit P-123"
+      }
+    }
+  ]
+}

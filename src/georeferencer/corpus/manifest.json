@@ -1,0 +1,48 @@
+{
+  "version": 2,
+  "documents": [
+    {
+      "id": "bc-rob-claims",
+      "title": "ROB 17, 19, 20, 21 claims \u00e2\u20ac\u201d geological report and offering statement (1988)",
+      "kind": "claim_report_and_offering",
+      "publisher": "BC Property File / Consolidated Bel-Air Resources",
+      "url": "https://propertyfile.gov.bc.ca/reports/PF019021.pdf"
+    },
+    {
+      "id": "west-mcarthur-drilling",
+      "title": "West McArthur \u00e2\u20ac\u201d summer drilling program (June 2025)",
+      "kind": "drilling_news_release",
+      "publisher": "CanAlaska Uranium",
+      "url": "https://www.canalaska.com/wp-content/uploads/2025/06/20250617-West-McArthur-Summer-Program-Start-FINAL.docx.pdf"
+    },
+    {
+      "id": "bc-drillhole-database",
+      "title": "BC assessment report drillhole database ? GeoFile 2025-11",
+      "kind": "geological_survey_report",
+      "publisher": "British Columbia Geological Survey",
+      "url": "https://cmscontent.nrs.gov.bc.ca/geoscience/publicationcatalogue/GeoFile/BCGS_GF2025-11.pdf",
+      "evaluation_role": "negative"
+    },
+    {
+      "id": "apuradita-channel-sampling",
+      "title": "Apuradita - Silver Elephant channel sampling results (July 2026)",
+      "kind": "sampling_news_release",
+      "publisher": "Silver Elephant Mining Corp. / Newsfile",
+      "url": "https://www.newsfilecorp.com/release/306609"
+    },
+    {
+      "id": "monte-do-carmo-serra-alta",
+      "title": "Monte do Carmo / Serra Alta - Cerrado Gold infill drilling results (July 2022)",
+      "kind": "drilling_news_release",
+      "publisher": "Cerrado Gold / Newsfile",
+      "url": "https://www.newsfilecorp.com/release/131103"
+    },
+    {
+      "id": "phoenix-jv-moss-drilling",
+      "title": "Phoenix JV / Moss target - Bonterra assay results and drilling restart (December 2024)",
+      "kind": "drilling_news_release",
+      "publisher": "Bonterra Resources / Newsfile",
+      "url": "https://www.newsfilecorp.com/release/233175"
+    }
+  ]
+}

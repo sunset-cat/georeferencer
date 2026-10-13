@@ -1,0 +1,26 @@
+flowchart LR
+    INGEST["Python ? Document ingestion"] --> DOC["Document<br/>name ? text"]
+    DOC --> CREATE["Python ? Create chunks"]
+    CREATE --> C1["chunk 1<br/>start ? end ? text"]
+    CREATE --> C2["chunk 2<br/>start ? end ? text"]
+    CREATE --> CN["? chunk n<br/>start ? end ? text"]
+    C1 --> PROCESSOR["Python ? Chunk processor<br/>Send chunk ? verify result<br/>Merge validated entities"]
+    C2 --> PROCESSOR
+    CN --> PROCESSOR
+    PROCESSOR --> REQUEST["Request<br/>text ? chunk_context"]
+    REQUEST --> LLM["LLM ? Sol<br/>Extract Entity[] + spatial context"]
+    LLM --> E["Entity[] ? component example<br/>name: FSA-221<br/>entity_kind: subaltern_location<br/>semantic_unit: mdc<br/>verification_classes: drilling_site"]
+    LLM --> P["Entity[] ? project context<br/>name: Monte do Carmo<br/>entity_kind: semantic_unit<br/>country_code: BR<br/>jurisdiction: Tocantins"]
+    E --> PROCESSOR
+    P --> PROCESSOR
+    PROCESSOR -- failed --> FAILED["Correction feedback<br/>validation_feedback<br/>previous_extraction, when parsed"]
+    FAILED -- same chunk --> LLM
+    PROCESSOR -- success --> CONTEXT["chunk_context<br/>existing_locations<br/>geographic_contexts<br/>country_code ? jurisdiction ? applies_to"]
+    CONTEXT -- next chunk --> LLM
+    PROCESSOR -- all chunks done --> OUT["Extraction.entities: Entity[]"]
+    classDef python fill:#eaf4ee,stroke:#39765b,color:#263c32;
+    classDef llm fill:#f1eafb,stroke:#7d56ae,color:#44305d;
+    classDef object fill:#ffffff,stroke:#a9b7c2,stroke-dasharray:5 5,font-style:italic,color:#536575;
+    class INGEST,CREATE,PROCESSOR python;
+    class LLM llm;
+    class DOC,C1,C2,CN,REQUEST,E,P,FAILED,CONTEXT,OUT object;
