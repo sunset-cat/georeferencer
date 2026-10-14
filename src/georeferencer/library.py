@@ -2,6 +2,7 @@
 import asyncio
 import io
 import json
+import shutil
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
@@ -23,6 +24,12 @@ class LibraryStore:
     def __init__(self, directory: Path):
         directory.mkdir(parents=True, exist_ok=True)
         self.path = directory / "library.sqlite3"
+        # A fresh checkout can browse saved demo results without import commands.
+        # Only bootstrap the default library; custom/test stores stay independent.
+        snapshot = Path.cwd() / "demo" / "library.sqlite3"
+        if (directory.resolve() == (Path.cwd() / "data" / "library").resolve()
+                and not self.path.exists() and snapshot.is_file()):
+            shutil.copyfile(snapshot, self.path)
         with self.connect() as db:
             db.executescript("""
                 CREATE TABLE IF NOT EXISTS documents (

@@ -138,6 +138,14 @@ On macOS/Linux, use `.venv/bin/georeferencer serve`. Open **http://127.0.0.1:800
 
 ### CLI and default documents
 
+#### Browse the saved demo results without model calls
+
+The repository includes `demo/library.sqlite3`: a compacted SQLite database containing document originals, extracted text, saved results and run history. Five documents are visible; two previously excluded documents remain hidden. Results are historical and include unresolved locations.
+
+Start the app normally from the repository root. On first startup, if the default `data/library/library.sqlite3` does not exist, the app copies the bundled database into place automatically. No extraction or import command is needed. Existing databases and custom library directories are left untouched.
+
+Browsing saved results requires no API key or model calls. Separate request-log files, intermediate caches and supporting-source downloads are not included, so detailed log-based diagnostics may be unavailable. Raw model responses and evidence already stored in the database remain available. Reprocessing can incur API charges.
+
 Windows commands are shown below; on macOS/Linux replace `.\.venv\Scripts\georeferencer.exe` with `.venv/bin/georeferencer`.
 
 ```powershell

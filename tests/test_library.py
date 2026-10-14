@@ -16,6 +16,21 @@ from georeferencer.pipeline import Pipeline
 FIXTURES = Path(__file__).resolve().parents[1] / "fixtures"
 
 
+def test_bundled_library_loads_only_for_missing_default_store(tmp_path, monkeypatch):
+    import shutil
+    monkeypatch.chdir(tmp_path)
+    source = LibraryStore(tmp_path / "seed")
+    identifier = source.create("Saved demo", content=b"Saved text")
+    snapshot = tmp_path / "demo" / "library.sqlite3"
+    snapshot.parent.mkdir()
+    shutil.copyfile(source.path, snapshot)
+    default = LibraryStore(Path("data/library"))
+    assert default.get(identifier)["content"] == b"Saved text"
+    extra = default.create("Local addition", content=b"Local text")
+    assert LibraryStore(Path("data/library")).get(extra)["name"] == "Local addition"
+    assert LibraryStore(tmp_path / "custom").list() == []
+
+
 def app(tmp_path):
     settings = Settings(log_dir=tmp_path / "logs", library_dir=tmp_path / "library",
                         registry_path=FIXTURES / "demo.registry.json")
